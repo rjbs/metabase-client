@@ -2,6 +2,12 @@ use strict;
 use warnings;
 package CPAN::Metabase::Client;
 
+=head1 NAME
+
+CPAN::Metabase::Client - a HTTP client for CPAN Metabase servers
+
+=cut
+
 our $VERSION = '0.001';
 
 use HTTP::Request::Common ();
