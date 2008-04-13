@@ -1,3 +1,4 @@
+use 5.006;
 use strict;
 use warnings;
 package CPAN::Metabase::Client;
@@ -93,5 +94,13 @@ sub abs_url {
   my ($self, $str) = @_;
   my $req_url = URI->new($str)->abs($self->url);
 }
+
+=head1 LICENSE
+
+Copyright (C) 2008, Ricardo SIGNES.
+
+This is free software, available under the same terms as perl itself.
+
+=cut
 
 1;
