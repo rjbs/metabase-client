@@ -42,10 +42,10 @@ sub http_request {
 sub submit_fact {
   my ($self, $fact) = @_;
 
-  my $path = sprintf 'submit/dist/%s/%s/%s',
+  my $path = sprintf 'submit/%s/dist/%s/%s/',
+    $fact->type,
     $fact->dist_author,
-    $fact->dist_file,
-    $fact->type;
+    $fact->dist_file;
 
   my $req_url = $self->abs_url($path);
 
@@ -77,17 +77,22 @@ sub retrieve_fact {
   $self->http_request($req);
 }
 
-sub search_stuff {
-  my ($self, @args) = @_;
+sub search {
+  my ($self, $method, $args) = @_;
 
-  my $req_url = $self->abs_url("search/" . join '/', @args);
+  my $req_url = $self->abs_url("search/" . join('/', $method, @$args));
 
   my $req = HTTP::Request::Common::GET(
      $req_url,
     'Accept' => 'text/x-json',
   );
 
-  $self->http_request($req);
+  my $res = $self->http_request($req);
+
+  die { response => $res } unless $res->is_success;
+
+  my $results = JSON::XS->new->allow_nonref(1)->decode($res->content);
+  return ref $results ? @$results : ();
 }
 
 sub abs_url {
