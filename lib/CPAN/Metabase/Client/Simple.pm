@@ -1,11 +1,11 @@
 use 5.006;
 use strict;
 use warnings;
-package CPAN::Metabase::Client;
+package CPAN::Metabase::Client::Simple;
 
 =head1 NAME
 
-CPAN::Metabase::Client - a HTTP client for CPAN Metabase servers
+CPAN::Metabase::Client::Simple - a client that submits to CPAN Metabase servers
 
 =cut
 
