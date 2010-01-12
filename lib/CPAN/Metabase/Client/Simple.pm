@@ -12,7 +12,7 @@ CPAN::Metabase::Client::Simple - a client that submits to CPAN Metabase servers
 our $VERSION = '0.001';
 
 use HTTP::Request::Common ();
-use JSON::XS;
+use JSON 2;
 use Params::Validate;
 use LWP::UserAgent;
 use URI;
@@ -53,7 +53,7 @@ sub submit_fact {
     $req_url,
     Content_Type => 'text/x-json',
     Accept       => 'text/x-json',
-    Content => JSON::XS->new->encode({
+    Content => JSON->new->encode({
       version => $fact->schema_version,
       content => $fact->content_as_string,
     })
@@ -91,7 +91,7 @@ sub search {
 
   die { response => $res } unless $res->is_success;
 
-  my $results = JSON::XS->new->allow_nonref(1)->decode($res->content);
+  my $results = JSON->new->allow_nonref(1)->decode($res->content);
   return ref $results ? @$results : ();
 }
 
